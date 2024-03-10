@@ -1,0 +1,17 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.define "vm" do |vmbox|
+    vmbox.vm.box = "centos/7"
+    vmbox.vm.hostname = "centos-7"
+    vmbox.vm.provision "shell", name: "kernel-update", path: "kernel-update.sh"
+    vmbox.vm.provision :reload
+    vmbox.vm.provision "shell", name: "check-version", path: "check-version.sh"
+    vmbox.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+      vb.cpus = "1"
+      vb.name = "VM_Centos_7"
+    end
+  end
+end
